@@ -8,6 +8,8 @@ import 'source-map-support/register';
 import { auth } from './middleware/auth';
 import { connectToDatabase } from './middleware/connectToDatabase';
 
+//Comment edited
+
 const app = express();
 app.use(express.json());
 
