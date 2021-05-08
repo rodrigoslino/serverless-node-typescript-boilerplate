@@ -1,6 +1,6 @@
-import { configEnv } from ".";
+import { configEnv } from '.';
 
 export default {
   requiresAuth: true,
-  envType: "production",
+  envType: 'production'
 } as configEnv;
