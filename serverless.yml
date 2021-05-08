@@ -28,7 +28,7 @@ provider:
 
 functions:
   mainHandler:
-    handler: handler.mainHandler
+    handler: ./src/startup.mainStartup
     events:
       - http: ANY /
       - http: 'ANY {proxy+}'

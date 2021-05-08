@@ -1,17 +1,14 @@
-import { APIGatewayProxyHandler } from 'aws-lambda';
 import bcrypt from 'bcryptjs';
 import express, { Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
 import { ObjectId } from 'mongodb';
-import * as ServerlessHttp from 'serverless-http';
 import 'source-map-support/register';
-import { auth } from './middleware/auth';
-import { connectToDatabase } from './middleware/connectToDatabase';
+import { auth } from '../middleware/auth';
+import { connectToDatabase } from '../middleware/connectToDatabase';
 
-const app = express();
-app.use(express.json());
+const router = express.Router();
 
-app.post('/user', async (req: Request, res: Response) => {
+router.post('/user', async (req: Request, res: Response) => {
   const db = await connectToDatabase();
   const collection = db.collection('users');
 
@@ -37,7 +34,7 @@ app.post('/user', async (req: Request, res: Response) => {
   res.header('x-auth-token', token).send(resultNewUser);
 });
 
-app.get('/me', auth, async (req: Request, res: Response) => {
+router.get('/me', auth, async (req: Request, res: Response) => {
   const db = await connectToDatabase();
   const collection = db.collection('users');
 
@@ -46,7 +43,7 @@ app.get('/me', auth, async (req: Request, res: Response) => {
   res.send(resultData);
 });
 
-app.post('/login', async (req: Request, res: Response) => {
+router.post('/login', async (req: Request, res: Response) => {
   const db = await connectToDatabase();
   const collection = db.collection('users');
 
@@ -64,4 +61,4 @@ app.post('/login', async (req: Request, res: Response) => {
   res.status(200).header('x-auth-token', token).json();
 });
 
-export const mainHandler: APIGatewayProxyHandler = ServerlessHttp(app);
+export default router;

@@ -6,8 +6,8 @@ export const auth = (req: Request, res: Response, next: NextFunction) => {
   if (!config.requiresAuth) {
     req['user'] = {
       _id: '608f5913b9556635bc1c9835',
-      name: 'rodrigo10',
-      email: 'r@slino.com.br6'
+      name: 'test',
+      email: 'test@test.com'
     };
     return next();
   }
