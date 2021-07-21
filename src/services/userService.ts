@@ -1,7 +1,6 @@
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import { ObjectId } from 'mongodb';
-import 'source-map-support/register';
 import { connectToDatabase } from '../middleware/connectToDatabase';
 
 export async function getToken({ email, password }) {
@@ -18,6 +17,7 @@ export async function getToken({ email, password }) {
 
   const { password: passwordUSer, ...userData } = user;
   const token = jwt.sign(userData, process.env.ENV_JWT_PRIVATE_KEY);
+
   return token;
 }
 
@@ -32,7 +32,6 @@ export async function getMe(_id: string) {
 }
 
 export async function add({ name, email, password }) {
-  console.log(email);
   const db = await connectToDatabase();
   const collection = db.collection('users');
 
