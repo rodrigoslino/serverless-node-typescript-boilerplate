@@ -1,5 +1,5 @@
 export const settings = {
-	jwtExpirationTime: "2 days"
-};
+  jwtExpirationTime: '2 days',
+}
 
-export default settings;
+export default settings
