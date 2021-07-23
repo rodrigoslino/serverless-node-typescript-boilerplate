@@ -3,6 +3,8 @@ import jwt from 'jsonwebtoken'
 import {ObjectId} from 'mongodb'
 import 'source-map-support/register'
 import {connectToDatabase} from '../middleware/connectToDatabase'
+import {verifyPassword} from '../middleware/passwordVerification'
+
 import settings from '../config/projectSettings'
 
 export async function getToken({email, password}) {
@@ -35,12 +37,14 @@ export async function getMe(_id: string) {
 }
 
 export async function add({name, email, password}) {
-  console.log(email)
   const db = await connectToDatabase()
   const collection = db.collection('users')
 
   let findUser = await collection.findOne({email})
   if (findUser) throw new Error('User already registered.')
+
+  let validPassword = await verifyPassword(password)
+  if (!validPassword.isValid) throw new Error(validPassword.errorMessage)
 
   let newUser = {
     _id: null,
