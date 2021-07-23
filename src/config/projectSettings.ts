@@ -11,6 +11,15 @@ export const settings = {
     symbol: 1,
     requirementCount: 4,
   },
+  errorTitles: {
+    400: 'Bad Request',
+    401: 'Unauthorized',
+    403: 'Forbidden',
+    404: 'Not Found',
+    412: 'Precondition Failed',
+    500: 'Internal Server Error',
+    503: 'Service Unavailable',
+  },
 }
 
 export default settings
