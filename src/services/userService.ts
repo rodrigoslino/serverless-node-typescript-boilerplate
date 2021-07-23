@@ -42,10 +42,10 @@ export async function add({name, email, password}) {
 
   let findUser = await collection.findOne({email})
   if (findUser) throw new Error('User already registered.')
-
-  let validPassword = await verifyPassword(password)
-  if (!validPassword.isValid) throw new Error(validPassword.errorMessage)
-
+  if (settings.useServerPasswordPolicy) {
+    let validPassword = await verifyPassword(password)
+    if (!validPassword.isValid) throw new Error(validPassword.errorMessage)
+  }
   let newUser = {
     _id: null,
     name,

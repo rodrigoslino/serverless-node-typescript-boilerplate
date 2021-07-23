@@ -1,5 +1,6 @@
 export const settings = {
   jwtExpirationTime: '2 days',
+  useServerPasswordPolicy: true,
   passwordLabel: 'Password',
   passwordPolicy: {
     min: 8,
